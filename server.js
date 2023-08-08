@@ -1,4 +1,5 @@
 import express from "express"
+import mongoose from "mongoose"
 
 import "dotenv/config"
 
@@ -17,6 +18,14 @@ app.use((req, res, next) => {
 // routes
 app.use("/api/hikes", hikeRoutes)
 
-app.listen(process.env.PORT, () => {
-  console.log(`listening on ${process.env.PORT}`)
-})
+// connect to db
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(`Connected to db and listening on ${process.env.PORT}`)
+    })
+  })
+  .catch((e) => {
+    console.log("Oh No Error", e)
+  })
