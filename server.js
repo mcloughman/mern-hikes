@@ -1,10 +1,19 @@
 import express from "express"
 import mongoose from "mongoose"
-
 import "dotenv/config"
+import { v2 as cloudinary } from "cloudinary"
+import { router as hikeRoutes } from "./routes/hikes.js"
+
+// Initialize Cloudinary with your API credentials from environment variables
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
+
+// Now you can use the cloudinary object to work with Cloudinary
 
 const app = express()
-import { router as hikeRoutes } from "./routes/hikes.js"
 
 // middleware
 
