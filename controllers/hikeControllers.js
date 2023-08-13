@@ -6,9 +6,10 @@ const hikeControllers = {
   getHikes: async (req, res) => {
     try {
       const hikes = await Hike.find({}).sort({ createdAt: -1 })
+
       res.status(200).json(hikes)
-    } catch (err) {
-      res.status(400).json({ err: err.message })
+    } catch (error) {
+      res.status(400).json({ error: error.message })
     }
   },
 
@@ -28,11 +29,27 @@ const hikeControllers = {
   // create new hike
   createHike: async (req, res) => {
     const { title, description, images, rating } = req.body
+    let emptyFields = []
+    if (!title) {
+      emptyFields.push("title")
+    }
+    if (!description) {
+      emptyFields.push("description")
+    }
+    if (!rating) {
+      emptyFields.push("rating")
+    }
+
+    if (emptyFields.length > 0) {
+      return res
+        .status(400)
+        .json({ error: "Please fill out all fields", emptyFields })
+    }
     try {
       const hike = await Hike.create({ title, description, images, rating })
       res.status(200).json(hike)
-    } catch (err) {
-      res.status(404).json({ error: err.message })
+    } catch (error) {
+      res.status(404).json({ error: error.message })
     }
   },
 

@@ -13,7 +13,6 @@ const hikeSchema = new Schema(
     },
     images: {
       type: [],
-      required: true,
     },
     rating: {
       type: Number,

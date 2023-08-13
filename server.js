@@ -1,5 +1,6 @@
 import express from "express"
 import mongoose from "mongoose"
+import cors from "cors"
 import "dotenv/config"
 import { v2 as cloudinary } from "cloudinary"
 import { router as hikeRoutes } from "./routes/hikes.js"
@@ -19,6 +20,8 @@ const app = express()
 
 // will look for data attached to the body of request and will parse it
 app.use(express.json())
+app.use(cors())
+
 app.use((req, res, next) => {
   console.log(req.path, req.method)
   next()
