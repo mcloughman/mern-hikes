@@ -36,7 +36,7 @@ const hikeControllers = {
     if (!description) {
       emptyFields.push("description")
     }
-    if (!rating) {
+    if (rating === 0) {
       emptyFields.push("rating")
     }
 
